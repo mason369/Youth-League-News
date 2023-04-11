@@ -1,52 +1,63 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+	<view class="home">
+		<scroll-view scroll-x class="nav-scroll">
+			<view class="item">国内</view>
+			<view class="item">国内</view>
+			<view class="item">国内</view>
+			<view class="item">国内</view>
+			<view class="item">国内</view>
+			<view class="item">国内</view>
+			<view class="item">国内</view>
+		</scroll-view>
+		<view class="content">
+			<view class="row" v-for="item in 10">
+				<newsbox></newsbox>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-
-		}
-	}
+export default {
+	data() {
+		return {
+			title: "Hello",
+		};
+	},
+	onLoad() {},
+	methods: {},
+};
 </script>
 
-<style>
+<style lang="scss" scope>
+.home {
+	.nav-scroll {
+		height: 100rpx;
+		background-color: #f7f8fa;
+		white-space: nowrap;
+		// 取消滚动条
+		/deep/ ::-webkit-scrollbar {
+			width: 4px !important;
+			height: 1px !important ;
+			overflow: auto !important;
+			background: transparent !important ;
+			-webkit-appearance: auto !important;
+			display: block;
+		}
+		.item {
+			display: inline-block;
+			padding: 0 30rpx;
+			line-height: 100rpx;
+			font-size: 40rpx;
+			color: #333;
+		}
+	}
 	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		padding: 30rpx;
+		.row {
+			border-bottom: 1px dotted #efefef;
+			padding: 15rpx 0;
+		}
 	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
+}
 </style>
