@@ -4,7 +4,7 @@
 			<view
 				class="item"
 				:class="index === navIndex ? 'active' : ''"
-				v-for="(item,index) in 10"
+				v-for="(item, index) in 10"
 				@click="clickNav(index)"
 				:key="index"
 				>国内</view
@@ -13,6 +13,7 @@
 		<view class="content">
 			<view class="row" v-for="item in 10">
 				<newsbox
+					@click.native="newsInfo"
 					:item="{ title: '首页标题', author: '李四', hits: '123' }"
 				></newsbox>
 			</view>
@@ -32,6 +33,11 @@ export default {
 	methods: {
 		clickNav(index) {
 			this.navIndex = index;
+		},
+		newsInfo() {
+			uni.navigateTo({
+				url: "/pages/detail/detail",
+			});
 		},
 	},
 };

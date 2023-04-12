@@ -179,14 +179,26 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
-      title: "Hello"
+      title: "Hello",
+      navIndex: 0
     };
   },
   onLoad: function onLoad() {},
-  methods: {}
+  methods: {
+    clickNav: function clickNav(index) {
+      this.navIndex = index;
+    }
+  }
 };
 exports.default = _default;
 

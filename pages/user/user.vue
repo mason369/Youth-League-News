@@ -11,7 +11,9 @@
 		</view>
 		<view class="content">
 			<div class="row" v-for="item in 10">
-				<newsbox :item="{title:'user标题',looktime:'2020-01-01'}"></newsbox>
+				<newsbox 
+				@click.native="newsInfo"
+				:item="{title:'user标题',looktime:'2020-01-01'}"></newsbox>
 			</div>
 		</view>
 	</view>
@@ -22,7 +24,13 @@ export default {
 	data() {
 		return {};
 	},
-	methods: {},
+	methods: {
+		newsInfo() {
+			uni.navigateTo({
+				url: "/pages/news/newsinfo",
+			});
+		},
+	},
 };
 </script>
 
