@@ -24,39 +24,31 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.home .nav-scroll {
-  height: 100rpx;
-  background-color: #f7f8fa;
-  white-space: nowrap;
-  position: fixed;
-  top: 0px;
-  left: 0;
-  z-index: 9;
+.user .top.data-v-80842834 {
+  padding: 50rpx 0;
+  background-color: #f8f8f8;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.home .nav-scroll ::-webkit-scrollbar {
-  width: 4px !important;
-  height: 1px !important;
-  overflow: auto !important;
-  background: transparent !important;
-  -webkit-appearance: auto !important;
-  display: block;
+.user .top image.data-v-80842834 {
+  width: 150rpx;
+  height: 150rpx;
 }
-.home .nav-scroll .item {
-  display: inline-block;
-  padding: 0 30rpx;
-  line-height: 100rpx;
-  font-size: 40rpx;
+.user .top .image.data-v-80842834 {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+.user .top .text.data-v-80842834 {
+  font-size: 38rpx;
   color: #333;
+  margin-left: 20rpx;
 }
-.home .nav-scroll .active {
-  color: #31c27c;
-}
-.home .content {
-  padding: 30rpx;
-  padding-top: 130rpx;
-}
-.home .content .row {
+.row.data-v-80842834 {
+  padding: 15rpx 0 !important;
   border-bottom: 1px dotted #efefef;
-  padding: 15rpx 0;
 }
 
