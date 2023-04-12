@@ -2,13 +2,13 @@
 
 ## 项目简介
 
-Youth League News是一个基于uni-app的新闻类小程序，主要用于展示青年团体的新闻动态，包括新闻、个人历史。
+Youth League News 是一个基于 uni-app 的新闻类小程序，主要用于展示青年团体的新闻动态，包括新闻、个人历史。
 
  <h2>内容列表</h2>
 
 - [Youth League News](#youth-league-news)
   - [项目简介](#项目简介)
-  - [项目现预览](#项目现预览)
+  - [项目预览](#项目预览)
   - [相关仓库](#相关仓库)
   - [维护者](#维护者)
   - [如何贡献](#如何贡献)
@@ -16,11 +16,11 @@ Youth League News是一个基于uni-app的新闻类小程序，主要用于展�
     - [特别感谢：](#特别感谢)
   - [使用许可](#使用许可)
 
-## 项目现预览
+## 项目预览
 
-![个人](效果图/个人.jpg)
-![首页](效果图/首页.jpg)
-![详情](效果图/详情.jpg)
+<img src="效果图/个人.jpg" width="30%" height="30%" alt="个人" align=center />
+<img src="效果图/首页.jpg" width="30%" height="30%" alt="首页" align=center />
+<img src="效果图/详情.jpg" width="30%" height="30%" alt="详情" align=center />
 
 ## 相关仓库
 

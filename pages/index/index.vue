@@ -11,7 +11,7 @@
 		</scroll-view>
 		<view class="content">
 			<view class="row" v-for="item in 10">
-				<newsbox></newsbox>
+				<newsbox :item="{title:'首页标题',author:'李四',hits:'123'}"></newsbox>
 			</view>
 		</view>
 	</view>
