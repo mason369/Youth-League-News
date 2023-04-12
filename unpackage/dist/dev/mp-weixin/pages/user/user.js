@@ -101,7 +101,7 @@ var components
 try {
   components = {
     newsbox: function () {
-      return __webpack_require__.e(/*! import() | components/newsbox/newsbox */ "components/newsbox/newsbox").then(__webpack_require__.bind(null, /*! @/components/newsbox/newsbox.vue */ 49))
+      return __webpack_require__.e(/*! import() | components/newsbox/newsbox */ "components/newsbox/newsbox").then(__webpack_require__.bind(null, /*! @/components/newsbox/newsbox.vue */ 57))
     },
   }
 } catch (e) {
@@ -158,7 +158,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -183,13 +183,22 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
   data: function data() {
     return {};
   },
-  methods: {}
+  methods: {
+    newsInfo: function newsInfo() {
+      uni.navigateTo({
+        url: "/pages/news/newsinfo"
+      });
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

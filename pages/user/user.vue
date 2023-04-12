@@ -6,15 +6,15 @@
 					src="../../static/images/history.png"
 					mode="aspectFit"
 				/>
-				<div class="text">浏览历史</div>
+				<view class="text">浏览历史</view>
 			</view>
 		</view>
 		<view class="content">
-			<div class="row" v-for="item in 10">
+			<view class="row" v-for="item in 10">
 				<newsbox 
 				@click.native="newsInfo"
 				:item="{title:'user标题',looktime:'2020-01-01'}"></newsbox>
-			</div>
+			</view>
 		</view>
 	</view>
 </template>

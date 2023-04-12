@@ -1,16 +1,16 @@
 <template>
 	<view class="detail">
-		<div class="title">sdfdsafdfasdfsad</div>
-		<div class="info">
-			<div class="author">sadf</div>
-			<div class="time">adf123123</div>
-		</div>
-		<div class="content">
+		<view class="title">sdfdsafdfasdfsad</view>
+		<view class="info">
+			<view class="author">sadf</view>
+			<view class="time">adf123123</view>
+		</view>
+		<view class="content">
 			内容沙恩非困难的萨克你付款那倒第三方大法师打发阿大使馆的是否和规范化股份截图与人和托管人的施工方第三个人大水发的说法是对方答复是快乐风男克拉斯电脑
-		</div>
-		<div class="description">
+		</view>
+		<view class="description">
 			买了看的adsfadsfsadfads是分开来哈阿的说法第三方撒打发第三方迪斯能否将卡的刷分
-		</div>
+		</view>
 	</view>
 </template>
 
