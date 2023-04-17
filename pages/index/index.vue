@@ -36,15 +36,22 @@ export default {
             navIndex: 0,
             navArr: [],
 			newsList: [],
+			page:1
         };
     },
     onLoad() {
         this.getNavData();
 		this.getNewsList();
     },
+	onReachBottom() {
+		this.page++
+		this.getNewsList();
+	},
     methods: {
         clickNav(index,id) {
             this.navIndex = index;
+			this.page = 1;
+			this.newsList=[]
 			this.getNewsList(id);
         },
         newsInfo() {
@@ -76,7 +83,8 @@ export default {
 			uni.request({
 				url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
 				data: {
-					cid:id
+					cid:id,
+					page:this.page
 				},
 				header: {
 					Accept: "application/json",
@@ -86,7 +94,7 @@ export default {
 				method: "GET",
 				sslVerify: true,
 				success: ({ data, statusCode, header }) => {
-					this.newsList = data;
+					this.newsList = [...this.newsList, ...data];
 					console.log(this.newsList);
 				},
 				fail: (error) => {},
