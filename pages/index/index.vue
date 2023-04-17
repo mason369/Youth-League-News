@@ -1,86 +1,131 @@
 <template>
-	<view class="home">
-		<scroll-view scroll-x class="nav-scroll">
-			<view
-				class="item"
-				:class="index === navIndex ? 'active' : ''"
-				v-for="(item, index) in 10"
-				@click="clickNav(index)"
-				:key="index"
-				>国内</view
-			>
-		</scroll-view>
-		<view class="content">
-			<view class="row" v-for="item in 10">
-				<newsbox
-					@click.native="newsInfo"
-					:item="{ title: '首页标题', author: '李四', hits: '123' }"
-				></newsbox>
-			</view>
-		</view>
-	</view>
+    <view class="home">
+        <scroll-view scroll-x class="nav-scroll">
+            <view
+                class="item"
+                :class="index === navIndex ? 'active' : ''"
+                v-for="(item, index) in navArr"
+                @click="clickNav(index)"
+                :key="item.id"
+                >{{ item.classname }}</view
+            >
+        </scroll-view>
+        <view class="content">
+            <view class="row" v-for="item in newsList" :key="item.id">
+                <newsbox
+                    @click.native="newsInfo"
+                    :item="item"
+                ></newsbox>
+            </view>
+        </view>
+    </view>
 </template>
 
 <script>
 export default {
-	data() {
-		return {
-			title: "Hello",
-			navIndex: 0,
-		};
-	},
-	onLoad() {},
-	methods: {
-		clickNav(index) {
-			this.navIndex = index;
-		},
-		newsInfo() {
-			uni.navigateTo({
-				url: "/pages/detail/detail",
+    data() {
+        return {
+            title: "Hello",
+            navIndex: 0,
+            navArr: [],
+			newsList: [],
+        };
+    },
+    onLoad() {
+        this.getNavData();
+		this.getNewsList();
+    },
+    methods: {
+        clickNav(index) {
+            this.navIndex = index;
+        },
+        newsInfo() {
+            uni.navigateTo({
+                url: "/pages/detail/detail",
+            });
+        },
+        // 获取导航栏列表数据
+        getNavData() {
+            uni.request({
+                url: "https://ku.qingnian8.com/dataApi/news/navlist.php",
+                data: {},
+                header: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                method: "GET",
+                sslVerify: true,
+                success: ({ data, statusCode, header }) => {
+                    this.navArr = data;
+                    console.log(this.navArr);
+                },
+                fail: (error) => {},
+            });
+        },
+		// 获取新闻列表
+		getNewsList() {
+			uni.request({
+				url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
+				data: {
+					cid:50
+				},
+				header: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+					"X-Requested-With": "XMLHttpRequest",
+				},
+				method: "GET",
+				sslVerify: true,
+				success: ({ data, statusCode, header }) => {
+					this.newsList = data;
+					console.log(this.newsList);
+				},
+				fail: (error) => {},
 			});
-		},
-	},
+		}
+    },
 };
 </script>
 
 <style lang="scss" scope>
 .home {
-	.nav-scroll {
-		height: 100rpx;
-		background-color: #f7f8fa;
-		white-space: nowrap;
-		// 添加固定定位
-		position: fixed;
-		top: var(--window-top);
-		left: 0;
-		z-index: 9;
-		// 取消滚动条
-		/deep/ ::-webkit-scrollbar {
-			width: 4px !important;
-			height: 1px !important ;
-			overflow: auto !important;
-			background: transparent !important ;
-			-webkit-appearance: auto !important;
-			display: block;
-		}
-		.item {
-			display: inline-block;
-			padding: 0 30rpx;
-			line-height: 100rpx;
-			font-size: 40rpx;
-			color: #333;
-		}
-		.active {
-			color: #31c27c;
-		}
-	}
-	.content {
-		padding: 30rpx;
-		padding-top: 130rpx;
-		.row {
-			border-bottom: 1px dotted #efefef;
-			padding: 15rpx 0;
-		}
-	}
+    .nav-scroll {
+        height: 100rpx;
+        background-color: #f7f8fa;
+        white-space: nowrap;
+        // 添加固定定位
+        position: fixed;
+        top: var(--window-top);
+        left: 0;
+        z-index: 9;
+        // 取消滚动条
+        /deep/ ::-webkit-scrollbar {
+            width: 4px !important;
+            height: 1px !important ;
+            overflow: auto !important;
+            background: transparent !important ;
+            -webkit-appearance: auto !important;
+            display: block;
+        }
+        .item {
+            display: inline-block;
+            padding: 0 30rpx;
+            line-height: 100rpx;
+            font-size: 40rpx;
+            color: #333;
+        }
+        .active {
+            color: #31c27c;
+        }
+    }
+    .content {
+        padding: 30rpx;
+        padding-top: 130rpx;
+        .row {
+            border-bottom: 1px dotted #efefef;
+            padding: 15rpx 0;
+        }
+    }
 }
 </style>
