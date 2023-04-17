@@ -5,26 +5,24 @@
                 class="item"
                 :class="index === navIndex ? 'active' : ''"
                 v-for="(item, index) in navArr"
-                @click="clickNav(index,item.id)"
+                @click="clickNav(index, item.id)"
                 :key="item.id"
                 >{{ item.classname }}</view
             >
         </scroll-view>
         <view class="content">
             <view class="row" v-for="item in newsList" :key="item.id">
-                <newsbox
-                    @click.native="newsInfo"
-                    :item="item"
-                ></newsbox>
+                <newsbox @click.native="newsInfo" :item="item"></newsbox>
             </view>
         </view>
-		<!-- 没有数据时展示 -->
-		<view class="nodata" v-if="!this.newsList.length">
-			<image
-				src="../../static/images/nodata.png"
-				mode="scaleToFill"
-			/>
-		</view>
+        <!-- 没有数据时展示 -->
+        <view class="nodata" v-if="!this.newsList.length">
+            <image src="../../static/images/nodata.png" mode="scaleToFill" />
+        </view>
+        <view class="loding" v-if="newsList.length">
+            <view v-if="loding === 1">数据加载中...</view>
+            <view v-if="loding === 2">没有更多了</view>
+        </view>
     </view>
 </template>
 
@@ -35,24 +33,28 @@ export default {
             title: "Hello",
             navIndex: 0,
             navArr: [],
-			newsList: [],
-			page:1
+            newsList: [],
+            page: 1,
+            loding: 0, //0是默认 1是加载中 2是没有更多了
         };
     },
     onLoad() {
         this.getNavData();
-		this.getNewsList();
+        this.getNewsList();
     },
-	onReachBottom() {
-		this.page++
-		this.getNewsList();
-	},
+    onReachBottom() {
+        if (this.loding === 2) return;
+        this.page++;
+        this.getNewsList();
+        this.loding = 1;
+    },
     methods: {
-        clickNav(index,id) {
+        clickNav(index, id) {
             this.navIndex = index;
-			this.page = 1;
-			this.newsList=[]
-			this.getNewsList(id);
+            this.page = 1;
+            this.newsList = [];
+            this.loding = 0;
+            this.getNewsList(id);
         },
         newsInfo() {
             uni.navigateTo({
@@ -78,28 +80,31 @@ export default {
                 fail: (error) => {},
             });
         },
-		// 获取新闻列表
-		getNewsList(id=50) {
-			uni.request({
-				url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
-				data: {
-					cid:id,
-					page:this.page
-				},
-				header: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-					"X-Requested-With": "XMLHttpRequest",
-				},
-				method: "GET",
-				sslVerify: true,
-				success: ({ data, statusCode, header }) => {
-					this.newsList = [...this.newsList, ...data];
-					console.log(this.newsList);
-				},
-				fail: (error) => {},
-			});
-		}
+        // 获取新闻列表
+        getNewsList(id = 50) {
+            uni.request({
+                url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
+                data: {
+                    cid: id,
+                    page: this.page,
+                },
+                header: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+                method: "GET",
+                sslVerify: true,
+                success: ({ data, statusCode, header }) => {
+                    this.newsList = [...this.newsList, ...data];
+                    if (data.length === 0) {
+                        this.loding = 2;
+                    }
+                    console.log(this.newsList);
+                },
+                fail: (error) => {},
+            });
+        },
     },
 };
 </script>
@@ -143,12 +148,18 @@ export default {
             padding: 15rpx 0;
         }
     }
-	.nodata{
-		display: flex;
-		justify-content: center;
-		image{
-			width: 360rpx
-		}
-	}
+    .nodata {
+        display: flex;
+        justify-content: center;
+        image {
+            width: 360rpx;
+        }
+    }
+    .loding {
+        text-align: center;
+        font-size: 26rpx;
+        line-height: 2em;
+        color: #888;
+    }
 }
 </style>
