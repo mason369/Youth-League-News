@@ -5,7 +5,7 @@
                 class="item"
                 :class="index === navIndex ? 'active' : ''"
                 v-for="(item, index) in navArr"
-                @click="clickNav(index)"
+                @click="clickNav(index,item.id)"
                 :key="item.id"
                 >{{ item.classname }}</view
             >
@@ -18,6 +18,13 @@
                 ></newsbox>
             </view>
         </view>
+		<!-- 没有数据时展示 -->
+		<view class="nodata" v-if="!this.newsList.length">
+			<image
+				src="../../static/images/nodata.png"
+				mode="scaleToFill"
+			/>
+		</view>
     </view>
 </template>
 
@@ -36,8 +43,9 @@ export default {
 		this.getNewsList();
     },
     methods: {
-        clickNav(index) {
+        clickNav(index,id) {
             this.navIndex = index;
+			this.getNewsList(id);
         },
         newsInfo() {
             uni.navigateTo({
@@ -64,11 +72,11 @@ export default {
             });
         },
 		// 获取新闻列表
-		getNewsList() {
+		getNewsList(id=50) {
 			uni.request({
 				url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
 				data: {
-					cid:50
+					cid:id
 				},
 				header: {
 					Accept: "application/json",
@@ -127,5 +135,12 @@ export default {
             padding: 15rpx 0;
         }
     }
+	.nodata{
+		display: flex;
+		justify-content: center;
+		image{
+			width: 360rpx
+		}
+	}
 }
 </style>
