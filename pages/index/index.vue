@@ -12,7 +12,7 @@
         </scroll-view>
         <view class="content">
             <view class="row" v-for="item in newsList" :key="item.id">
-                <newsbox @click.native="newsInfo" :item="item"></newsbox>
+                <newsbox @click.native="newsInfo(item)" :item="item"></newsbox>
             </view>
         </view>
         <!-- 没有数据时展示 -->
@@ -56,9 +56,9 @@ export default {
             this.loding = 0;
             this.getNewsList(id);
         },
-        newsInfo() {
+        newsInfo(item) {
             uni.navigateTo({
-                url: "/pages/detail/detail",
+                url: `/pages/detail/detail?cid=${item.classid}&id=${item.id}`,
             });
         },
         // 获取导航栏列表数据

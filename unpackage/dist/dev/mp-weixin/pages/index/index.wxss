@@ -59,4 +59,17 @@
   border-bottom: 1px dotted #efefef;
   padding: 15rpx 0;
 }
+.home .nodata {
+  display: flex;
+  justify-content: center;
+}
+.home .nodata image {
+  width: 360rpx;
+}
+.home .loding {
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 2em;
+  color: #888;
+}
 

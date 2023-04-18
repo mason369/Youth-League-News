@@ -125,6 +125,17 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = this.newsList.length
+  var g1 = _vm.newsList.length
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+        g1: g1,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -160,10 +171,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
+//
+//
+//
+//
+//
 //
 //
 //
@@ -191,17 +209,87 @@ var _default = {
   data: function data() {
     return {
       title: "Hello",
-      navIndex: 0
+      navIndex: 0,
+      navArr: [],
+      newsList: [],
+      page: 1,
+      loding: 0 //0是默认 1是加载中 2是没有更多了
     };
   },
-  onLoad: function onLoad() {},
+  onLoad: function onLoad() {
+    this.getNavData();
+    this.getNewsList();
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.loding === 2) return;
+    this.page++;
+    this.getNewsList();
+    this.loding = 1;
+  },
   methods: {
-    clickNav: function clickNav(index) {
+    clickNav: function clickNav(index, id) {
       this.navIndex = index;
+      this.page = 1;
+      this.newsList = [];
+      this.loding = 0;
+      this.getNewsList(id);
     },
-    newsInfo: function newsInfo() {
+    newsInfo: function newsInfo(item) {
       uni.navigateTo({
-        url: "/pages/detail/detail"
+        url: "/pages/detail/detail?cid=".concat(item.classid, "&id=").concat(item.id)
+      });
+    },
+    // 获取导航栏列表数据
+    getNavData: function getNavData() {
+      var _this = this;
+      uni.request({
+        url: "https://ku.qingnian8.com/dataApi/news/navlist.php",
+        data: {},
+        header: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        method: "GET",
+        sslVerify: true,
+        success: function success(_ref) {
+          var data = _ref.data,
+            statusCode = _ref.statusCode,
+            header = _ref.header;
+          _this.navArr = data;
+          console.log(_this.navArr);
+        },
+        fail: function fail(error) {}
+      });
+    },
+    // 获取新闻列表
+    getNewsList: function getNewsList() {
+      var _this2 = this;
+      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 50;
+      uni.request({
+        url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
+        data: {
+          cid: id,
+          page: this.page
+        },
+        header: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        method: "GET",
+        sslVerify: true,
+        success: function success(_ref2) {
+          var data = _ref2.data,
+            statusCode = _ref2.statusCode,
+            header = _ref2.header;
+          _this2.newsList = [].concat((0, _toConsumableArray2.default)(_this2.newsList), (0, _toConsumableArray2.default)(data));
+          if (data.length === 0) {
+            _this2.loding = 2;
+          }
+          console.log(_this2.newsList);
+        },
+        fail: function fail(error) {}
       });
     }
   }
